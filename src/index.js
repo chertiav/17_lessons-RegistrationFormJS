@@ -18,19 +18,16 @@ const divFirstName = document.createElement ('div');
 const inputFirstName = document.createElement ('input');
 const divLastName = document.createElement ('div');
 const inputLastName = document.createElement ('input');
-const spanFirstRowError = document.createElement ('span');
 const divSecomdRowForms = document.createElement ('div');
 const divDisplayName = document.createElement ('div');
 const inputDisplayName = document.createElement ('input');
 const divEmail = document.createElement ('div');
 const inputEmail = document.createElement ('input');
-const spanSecondRowForms = document.createElement ('span');
 const divThirdRowForms = document.createElement ('div');
 const divPassword = document.createElement ('div');
 const inputPassword = document.createElement ('input');
 const divPasswordConfirmmation = document.createElement ('div');
 const inputPasswordConfirmmation = document.createElement ('input');
-const spanThirdRowForms = document.createElement ('span');
 const divFourthRowForms = document.createElement ('div');
 const divFieldContainerFourthRowForms= document.createElement ('div');
 const labelFourthRowForms = document.createElement ('label');
@@ -47,6 +44,10 @@ const inputSixRowForms = document.createElement ('input');
 const labelSixRowForms = document.createElement ('label');
 const divFooter = document.createElement ('div');
 const buttonFooter = document.createElement ('button');
+const errorMessageFirstRow = document.createElement ('span');
+const errorMessageSecondRow = document.createElement ('span');
+const errorMessageThirdRow = document.createElement ('span');
+const formInputs = document.getElementsByClassName('example');
 
 //create class element
 divContainer.className = 'container';
@@ -59,21 +60,24 @@ divForms.className = 'content-forms';
 divFirstRowForms.className = 'row';
 divFirstName.className = 'field-container';
 inputFirstName.className =  'example';
+inputFirstName.classList.add('row-name');
 divLastName.className = 'field-container';
 inputLastName.className =  'example';
-spanFirstRowError.className = 'error-message';
+inputLastName.classList.add('row-name');
 divSecomdRowForms.className = 'row';
 divDisplayName.className = 'field-container';
 inputDisplayName.className =  'example';
+inputDisplayName.classList.add('row-nik');
 divEmail.className = 'field-container';
 inputEmail.className =  'example';
-spanSecondRowForms.className = 'error-message';
+inputEmail.classList.add('row-nik');
 divThirdRowForms.className = 'row';
 divPassword.className = 'field-container';
 inputPassword.className =  'example';
+inputPassword.classList.add('row-password');
 divPasswordConfirmmation.className = 'field-container';
 inputPasswordConfirmmation.className =  'example';
-spanThirdRowForms.className = 'error-message';
+inputPasswordConfirmmation.classList.add('row-password');
 divFourthRowForms.className = 'row';
 divFieldContainerFourthRowForms.className = 'fieldf-container';
 labelFourthRowForms.className = 'join-label';
@@ -90,6 +94,9 @@ inputSixRowForms.className = 'checkbox';
 labelSixRowForms.className = 'checkbox-text';
 divFooter.className = 'footer';
 buttonFooter.className = 'button-footer';
+errorMessageFirstRow.className = 'error-message';
+errorMessageSecondRow.className = 'error-message';
+errorMessageThirdRow.className = 'error-message';
 
 //create id
 divFourthRowForms.id = 'fourth-row';
@@ -102,18 +109,24 @@ tegImgdivLogo.setAttribute('src', '../public/assets/icons/logo.png');
 tegAbuttondivLogo.setAttribute('href', 'https://www.squadhelp.com/login');
 inputFirstName.setAttribute('placeholder', 'First name');
 inputFirstName.setAttribute('name', 'first-name');
-inputLastName.setAttribute('placeholder', 'Larst name');
+inputFirstName.setAttribute('required', '');
+inputLastName.setAttribute('placeholder', 'Last name');
 inputLastName.setAttribute('name', 'last-name');
+inputLastName.setAttribute('required', '');
 inputDisplayName.setAttribute('placeholder', 'Display Name');
 inputDisplayName.setAttribute('name', 'display-name');
+inputDisplayName.setAttribute('required', '');
 inputEmail.setAttribute('placeholder', 'Email Address');
 inputEmail.setAttribute('name', 'email');
+inputEmail.setAttribute('required', '');
 inputPassword.setAttribute('placeholder', 'Password');
 inputPassword.setAttribute('type','Password');
 inputPassword.setAttribute('name', 'password');
+inputPassword.setAttribute('required', '');
 inputPasswordConfirmmation.setAttribute('placeholder', 'Password Confirmmation');
 inputPasswordConfirmmation.setAttribute('type','Password');
 inputPasswordConfirmmation.setAttribute('name','password-confirmmation');
+inputPasswordConfirmmation.setAttribute('required', '');
 inputlabelFourthRowForm.setAttribute('type','radio');
 inputlabelFourthRowForm.setAttribute('name','user_is');
 inputlabelFourthRowForm.setAttribute('value','Buyer');
@@ -134,10 +147,6 @@ spandivFifthRowForms.textContent = 'I plan to submit name ideas, Logo designs or
 labelSixRowForms.textContent = 'Allow Squadhelp to send marketing/promotional offers from time to time';
 buttonFooter.textContent = 'Create account';
 
-// spanFirstRowError.textContent = 'Field cannot be empty';
-// spanSecondRowForms.textContent = 'Display name should be more than 4 characters';
-// spanThirdRowForms.textContent = 'Password confirmation needs to match original password';
-
 //append element
 body.appendChild(divContainer);
 divContainer.appendChild(divHeader);
@@ -157,19 +166,16 @@ divFirstRowForms.appendChild(divFirstName);
 divFirstName.appendChild(inputFirstName);
 divFirstRowForms.appendChild(divLastName);
 divLastName.appendChild(inputLastName);
-divFirstRowForms.appendChild(spanFirstRowError);
 divForms.appendChild(divSecomdRowForms);
 divSecomdRowForms.appendChild(divDisplayName);
 divDisplayName.appendChild(inputDisplayName);
 divSecomdRowForms.appendChild(divEmail);
 divEmail.appendChild(inputEmail);
-divSecomdRowForms.appendChild(spanSecondRowForms);
 divForms.appendChild(divThirdRowForms);
 divThirdRowForms.appendChild(divPassword);
 divPassword.appendChild(inputPassword);
 divThirdRowForms.appendChild(divPasswordConfirmmation);
 divPasswordConfirmmation.appendChild(inputPasswordConfirmmation);
-divThirdRowForms.appendChild(spanThirdRowForms);
 divForms.appendChild(divFourthRowForms);
 divFourthRowForms.appendChild(divFieldContainerFourthRowForms);
 divFieldContainerFourthRowForms.appendChild(labelFourthRowForms);
@@ -187,27 +193,45 @@ divFieldContainerSixRowForms.appendChild(labelSixRowForms);
 divContainer.appendChild(divFooter);
 divFooter.appendChild(buttonFooter);
 
-//!пока отключил их
-spanFirstRowError.classList.toggle('error-message');
-spanSecondRowForms.classList.toggle('error-message');
-spanThirdRowForms.classList.toggle('error-message');
+//validation form
 
+const regexpPassword = /^\w{8,15}$/igu;
+const regexpEmail = /^\w+\.?\w+@[a-z]{3,8}(\.[a-z]{2,5})$/iu;
 
+function checkValidData (checkData) {
+	if (checkData.name === 'email') {
+		return regexpEmail.test(formInputs[3].value);
+	} if (checkData.name === 'password' || checkData.name === 'password-confirmmation') {
+		return regexpPassword.test(formInputs[4].value) || regexpPassword.test(formInputs[5].value) 
+			&& (formInputs[4].value === formInputs[5].value);
+	}
+	return true;
+}
 
+function ShowErrorMessage (target, messageRow, messageText) {
+	const nextS = target.parentNode.parentNode.nextSibling;
+	if (!target.value || !checkValidData(target)){
+		messageRow.textContent = `${target.placeholder} ${messageText}`;
+		target.classList.remove('input-valid');
+		target.classList.add('input-error');
+		divForms.insertBefore(messageRow, nextS)
+	} else {
+		target.classList.remove('input-error');
+		target.classList.add('input-valid');
+		messageRow.remove();
+	}	
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+divForms.addEventListener('focusout', 
+	(e) => {
+		if(e.target.classList.contains('row-name')){
+			ShowErrorMessage(e.target, errorMessageFirstRow, 'Field cannot be empty');
+		}
+		if(e.target.classList.contains('row-nik')){
+			ShowErrorMessage(e.target, errorMessageSecondRow, 'should be more than 4 characters');
+		}
+		if(e.target.classList.contains('row-password')){
+			ShowErrorMessage(e.target, errorMessageThirdRow, 'needs to match original password');
+		}
+	}
+)
