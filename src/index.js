@@ -102,6 +102,9 @@ errorMessageThirdRow.className = 'error-message';
 divFourthRowForms.id = 'fourth-row';
 divFifthRowForms.id = 'fifth-row';
 divFieldContainerSixRowForms.id = 'six-row';
+inputPassword.id = 'password';
+inputPasswordConfirmmation.id = 'password-confirmmation';
+inputEmail.id = 'email';
 
 //create atribute
 tegAdivLogo.setAttribute('href', 'https://www.squadhelp.com/');
@@ -200,10 +203,11 @@ const regexpEmail = /^\w+\.?\w+@[a-z]{3,8}(\.[a-z]{2,5})$/iu;
 
 function checkValidData (checkData) {
 	if (checkData.name === 'email') {
-		return regexpEmail.test(formInputs[3].value);
+		return regexpEmail.test(checkData.value);
 	} if (checkData.name === 'password' || checkData.name === 'password-confirmmation') {
-		return regexpPassword.test(formInputs[4].value) || regexpPassword.test(formInputs[5].value) 
-			&& (formInputs[4].value === formInputs[5].value);
+		return regexpPassword.test(formInputs['password'].value) 
+			|| regexpPassword.test(formInputs['password-confirmmation'].value) 
+			&& (formInputs['password'].value === formInputs['password-confirmmation'].value);
 	}
 	return true;
 }
@@ -225,13 +229,18 @@ function ShowErrorMessage (target, messageRow, messageText) {
 divForms.addEventListener('focusout', 
 	(e) => {
 		if(e.target.classList.contains('row-name')){
-			ShowErrorMessage(e.target, errorMessageFirstRow, 'Field cannot be empty');
+			ShowErrorMessage(e.target, errorMessageFirstRow, 'field cannot be empty');
 		}
 		if(e.target.classList.contains('row-nik')){
-			ShowErrorMessage(e.target, errorMessageSecondRow, 'should be more than 4 characters');
+			if (e.target.name === 'email') {
+				ShowErrorMessage(e.target, errorMessageSecondRow, 'please check the format');
+			} else {
+				ShowErrorMessage(e.target, errorMessageSecondRow, 'field cannot be empty');
+			}
 		}
 		if(e.target.classList.contains('row-password')){
 			ShowErrorMessage(e.target, errorMessageThirdRow, 'needs to match original password');
 		}
 	}
 )
+
